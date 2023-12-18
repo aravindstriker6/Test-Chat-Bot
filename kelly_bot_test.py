@@ -3,7 +3,7 @@ import pinecone
 import openai
 import streamlit as st
 from langchain.embeddings.openai import OpenAIEmbeddings
-openai.api_key = "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"
+openai.api_key = "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"
 model = OpenAIEmbeddings(deployment="text-embedding-ada-002", openai_api_key=openai.api_key)
 pinecone.init(api_key="2e0758cf-43ed-4585-b9fe-e0eba410118b", environment="gcp-starter")
 index = pinecone.Index("chat-bot")
@@ -29,7 +29,7 @@ def find_match(input):
     return response['choices'][0]['text']'''
 from openai import OpenAI
 def query_refiner(conversation, query):
- client = OpenAI(api_key="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")
+ client = OpenAI(api_key="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")
 
  response= client.chat.completions.create(
     model="gpt-3.5-turbo",
