@@ -50,37 +50,7 @@ file_path = None
 
 with textcontainer:
     query = st.text_input("Query: ", key="input")
-    uploaded_file = st.file_uploader("Upload a file", type=["txt", "pdf", "docx", "csv"])
-
-    if uploaded_file:
-        with st.spinner("typing..."):
-            # Construct file path
-            file_path = os.path.join(uploads_folder, uploaded_file.name)
-
-            try:
-                # Save the uploaded file to the 'uploads' folder
-                with open(file_path, "wb") as f:
-                    f.write(uploaded_file.read())
-
-                st.write(f"File uploaded: [Download {uploaded_file.name}]({file_path})")
-                text=pdf_text_convertor(file_path)
-                new_file_path = r"C:\Users\asrinivasan\chatbot\storage"
-                _, file_extension = os.path.splitext(uploaded_file.name)
-                change_extension= uploaded_file.name.replace(file_extension, ".txt")
-                file_path_final = os.path.join(new_file_path, change_extension)
-                with open(file_path_final, 'w', encoding='utf-8') as file:
-                          file.write(text)
-                text_upload=pinecone_uploader(file_path_final)
-                pinecone.init(api_key=os.getenv("PINE_API_KEY"), environment="gcp-starter")
-                index_name = "chat-bot"
-                embeddings = OpenAIEmbeddings(deployment="text-embedding-ada-002",api_key=os.getenv("OPEN_API_KEY"))
-                index = Pinecone.from_documents(text_upload, embeddings, index_name=index_name)
-                st.success(f"The document is uploaded to the Pinecone index '{index_name}' and User can start asking questions from it")
-
-            except Exception as e:
-                st.error(f"Error handling file upload: {e}")
-                # Set file_path to None in case of an error
-                file_path = None
+    
     if query:
         with st.spinner("typing..."):
             conversation_string = get_conversation_string()
