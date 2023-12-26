@@ -1,0 +1,10 @@
+streamlit
+streamlit_chat
+langchain
+sentence_transformers
+tiktoken
+openai
+python-dotenv
+huggingface_hub
+pinecone-client
+unstructured 
